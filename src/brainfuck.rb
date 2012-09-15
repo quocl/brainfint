@@ -5,7 +5,7 @@
 class Brainfuck
 	SIZE = 30000
 	VALID_COMMAND = ['>', '<', '+', '-', '.',',', '[', ']']
-	def initializie(input=[])
+	def initialize(input="")
 		@limit = Array.new(SIZE,0)
 		@pos = 0
 		@input = input.split('')
@@ -32,11 +32,11 @@ class Brainfuck
 		@limit[@pos] -= 1
 	end
 	
-	def out
+	def write
 		print @limit[@pos].chr
 	end
 
-	def in
+	def read
 		@limit[@pos] = STDIN.getc || 0
 	end
 
@@ -51,10 +51,32 @@ class Brainfuck
 			@input_pos -= 1 while @input[@input_pos] != '['
 		end	
 	end
+
+	def eval
+		@input.each do |comand|
+			case command
+			when '>'
+				move_right
+			when '<'
+				move_left
+			when '+'
+				increase
+			when '-'
+				decrease
+			when '.'
+				write
+			when ','
+				read
+			when '['
+				jump_forward
+			when ']'
+				jump_backward
+			else
+				puts "Invalid input: Unrecognized character #{command}"
+			end
+		end
+	end
 end
 
-#Brainfuck.abc
-a = Brainfuck.new
-#puts a.limit
-puts Brainfuck.abc
-puts STDIN
+a = Brainfuck.new("+++these+++ are++++[>+++comments++++>+++in+++a++++>+++brainfuck>+<<<<-]program!!!>++.>+.++++lol+++..+++.>++.<<+++++++++++++++.>.+++.------.--------.>+.>.")
+
