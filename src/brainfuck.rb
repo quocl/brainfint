@@ -1,22 +1,19 @@
 # Brainfuck interpreter in ruby
+# There are 8 valid commands in brainfuck, which are: '>', '<', '+', '-', '.',',', '[' and  ']'
+
 
 class Brainfuck
 	SIZE = 30000
-	def initialize
-		@VALID_COMMANDS = ['>', '<', '+', '-', '.',',', '[', ']']
+	VALID_COMMAND = ['>', '<', '+', '-', '.',',', '[', ']']
+	def initializie(input=[])
 		@limit = Array.new(SIZE,0)
 		@pos = 0
-	end
-	def self.abc
-		puts 'hello'
+		@input = input.split('')
+		@input_pos = 0
 	end
 
-	def limit
-		@limit
-	end
-	
-	def limit=(val)
-		@limit=val
+	def self.abc
+		print VALID_COMMAND
 	end
 
 	def move_right
@@ -34,12 +31,30 @@ class Brainfuck
 	def decrease
 		@limit[@pos] -= 1
 	end
+	
+	def out
+		print @limit[@pos].chr
+	end
 
+	def in
+		@limit[@pos] = STDIN.getc || 0
+	end
 
+	def jump_forward
+		if @limit[@pos] == 0
+			@input_pos += 1 while @input[@input_pos] != ']'
+		else
 
+		end		
+	end
+
+	def jump_backward
+		
+	end
 end
 
 #Brainfuck.abc
 a = Brainfuck.new
-puts a.limit
-
+#puts a.limit
+puts Brainfuck.abc
+puts STDIN
