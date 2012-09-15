@@ -43,13 +43,13 @@ class Brainfuck
 	def jump_forward
 		if @limit[@pos] == 0
 			@input_pos += 1 while @input[@input_pos] != ']'
-		else
-
 		end		
 	end
 
 	def jump_backward
-		
+		if @limit[@pos] != 0
+			@input_pos -= 1 while @input[@input_pos] != '['
+		end	
 	end
 end
 
