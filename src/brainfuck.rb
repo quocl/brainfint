@@ -1,70 +1,94 @@
-# Brainfuck interpreter in ruby
+# Brainfuck interpreter in ruby 1.9.3
 # There are 8 valid commands in brainfuck, which are: '>', '<', '+', '-', '.',',', '[' and  ']'
 
 
 class Brainfuck
 	SIZE = 30000
-	VALID_COMMAND = ['>', '<', '+', '-', '.',',', '[', ']']
 	def initialize(input="")
-		@limit = Array.new(SIZE,0)
-		@pos = 0
-		@input = input.split('')
-		@input_pos = 0
-	end
-
-	def self.abc
-		print VALID_COMMAND
+		@data = Array.new(SIZE,0)   # data
+		@pos = 0										# data pointer 
+		@program = input.gsub(/[^\>\<\.\,\+\-\[\]]/m, '').split('')
+		@program_pos = 0      
+		puts @program
+		#print @program
 	end
 
 	def move_right
+		# function for '>'
+		# increment the data pointer (to point to the next cell to the right).
 		@pos += 1 unless @pos >= SIZE - 1
 	end
 
 	def move_left
+		# function for '<'
+		# decrement the data pointer (to point to the next cell to the left).
 		@pos -= 1 unless @pos <= 0
 	end 
 
 	def increase
-		@limit[@pos] += 1 
+		# function for '+'
+		# increment (increase by one) the byte at the data pointer.
+		@data[@pos] += 1 
 	end
 	
 	def decrease
-		@limit[@pos] -= 1
+		# function for '-'
+		# decrement (decrease by one) the byte at the data pointer.
+		@data[@pos] -= 1
 	end
 	
 	def write
-		print @limit[@pos].chr
+		# function for '.'
+		# output the byte at the data pointer as an ASCII encoded character.
+		print @data[@pos].chr
 	end
 
 	def read
-		@limit[@pos] = STDIN.getc || 0
+		# function for ','
+		# accept one byte of input, storing its value in the byte at the data pointer.
+		tmp = gets 
+		@data[@pos] = tmp[0].ord
 	end
 
 	def jump_forward
-		if @limit[@pos] == 0
-			@input_pos += 1 while @input[@input_pos] != ']'
+		# function for '['
+		# 
+		if @data[@pos] == 0
+			@program_pos += 1 until @program[@program_pos - 1 ] == ']' 
+		else
+			#@program_pos += 1 until @program[@program_pos - 1 ] == ']'
+			@program_pos += 1 
 		end		
 	end
 
 	def jump_backward
-		if @limit[@pos] != 0
-			@input_pos -= 1 while @input[@input_pos] != '['
+		# function for ']'
+		if @data[@pos] != 0
+			@program_pos -= 1 until @program[@program_pos - 1] == '['
+		else
+			@program_pos += 1 
 		end	
 	end
 
 	def eval
-		@input.each do |comand|
-			case command
+		
+		while @program_pos < @program.size
+			case @program[@program_pos]
 			when '>'
 				move_right
+				@program_pos += 1
 			when '<'
 				move_left
+				@program_pos += 1
 			when '+'
 				increase
+				@program_pos += 1
 			when '-'
 				decrease
+				@program_pos += 1
 			when '.'
 				write
+				@program_pos += 1
 			when ','
 				read
 			when '['
@@ -78,5 +102,8 @@ class Brainfuck
 	end
 end
 
-a = Brainfuck.new("+++these+++ are++++[>+++comments++++>+++in+++a++++>+++brainfuck>+<<<<-]program!!!>++.>+.++++lol+++..+++.>++.<<+++++++++++++++.>.+++.------.--------.>+.>.")
-
+#a = Brainfuck.new("+++these+++ are++++[>+++comments++++>+++in+++a++++>+++brainfuck>+<<<<-]program!!!>++.>+.++++lol+++..+++.>++.<<+++++++++++++++.>.+++.------.--------.>+.>.")
+program = ">+++++++++[<++++++++>-]<.>+++++++[<++++>-]<+.+++++++..+++.>>>++++++++[<++++>-]<.>>>++++++++++[<+++++++++>-]<---.<<<<.+++.------.--------.>>+."
+#program = ",+[-.,+]"
+a = Brainfuck.new(program)
+a.eval
