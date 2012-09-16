@@ -5,8 +5,9 @@
 class Brainfuck
 	SIZE = 30000
 	def initialize(input="")
+		# initialize the brainfuck interpreter
 		@data = Array.new(SIZE,0)   # data
-		@pos = 0										# data pointer 
+		@pos = 0		    # data pointer 
 		@program = input.gsub(/[^\>\<\.\,\+\-\[\]]/m, '').split('')
 		@program_pos = 0      
 	end
@@ -54,7 +55,6 @@ class Brainfuck
 		if @data[@pos] == 0
 			@program_pos += 1 until @program[@program_pos - 1 ] == ']' 
 		else
-			#@program_pos += 1 until @program[@program_pos - 1 ] == ']'
 			@program_pos += 1 
 		end		
 	end
@@ -69,7 +69,7 @@ class Brainfuck
 	end
 
 	def eval
-		
+		# evaluate the brainfuck program
 		while @program_pos < @program.size
 			case @program[@program_pos]
 			when '>'
@@ -100,8 +100,6 @@ class Brainfuck
 	end
 end
 
-#a = Brainfuck.new("+++these+++ are++++[>+++comments++++>+++in+++a++++>+++brainfuck>+<<<<-]program!!!>++.>+.++++lol+++..+++.>++.<<+++++++++++++++.>.+++.------.--------.>+.>.")
-program = ">+++++++++[<++++++++>-]<.>+++++++[<++++>-]<+.+++++++..+++.>>>++++++++[<++++>-]<.>>>++++++++++[<+++++++++>-]<---.<<<<.+++.------.--------.>>+."
-#program = ",+[-.,+]"
-a = Brainfuck.new(program)
-a.eval
+interpreted_program = Brainfuck.new(gets)
+interpreted_program.eval
+
