@@ -100,6 +100,7 @@ class Brainfuck
 	end
 end
 
-interpreted_program = Brainfuck.new(gets)
+#input =  ARGV ? $< : File(ARGV[0])
+interpreted_program = Brainfuck.new(STDIN.read)
 interpreted_program.eval
 
