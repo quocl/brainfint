@@ -1,16 +1,16 @@
 # Brainfuck interpreter in ruby 1.9.3
 # There are 8 valid commands in brainfuck, which are: '>', '<', '+', '-', '.',',', '[' and  ']'
 
-
 class Brainfuck
 	SIZE = 30000
 	def initialize(input="")
 		# initialize the brainfuck interpreter
 		@data = Array.new(SIZE,0)   # data
 		@pos = 0		    # data pointer 
-		@program = input.gsub(/[^\>\<\.\,\+\-\[\]]/m, '').split('')
-		@program_pos = 0      
-	end
+		@program = input.gsub(/[^\>\<\.\,\+\-\[\]]/m, '').split('') # the brainfuck program
+		@program_pos = 0   # brainfuck program pointer
+        @depth = 0 #depth of the loop 
+    end
 
 	def move_right
 		# function for '>'
@@ -51,19 +51,44 @@ class Brainfuck
 
 	def jump_forward
 		# function for '['
-		# 
+		@depth += 1
+        current_depth = @depth
 		if @data[@pos] == 0
-			@program_pos += 1 until @program[@program_pos - 1 ] == ']' 
-		else
+            #while @program[@program_pos -1] != ']' and @depth != current_depth 
+            while true
+                @program_pos += 1 
+                if @program[@program_pos] == '['
+                    @depth += 1
+                elsif @program[@program_pos] == ']'
+                    @depth -= 1
+                    if @depth == current_depth - 1
+                        break
+                    end
+                end
+	        end
+        else
 			@program_pos += 1 
 		end		
 	end
 
 	def jump_backward
 		# function for ']'
+        @depth -= 1
+        current_depth = @depth
 		if @data[@pos] != 0
-			@program_pos -= 1 until @program[@program_pos - 1] == '['
-		else
+			#@program_pos -= 1 until @program[@program_pos - 1] == '['
+            while true 
+                @program_pos -= 1
+                if @program[@program_pos] == ']'
+                    @depth += 1
+                elsif @program[@program_pos] == '['
+                    @depth -= 1
+                    if @depth == current_depth - 1
+                        break
+                    end
+                end
+            end
+        else
 			@program_pos += 1 
 		end	
 	end
@@ -100,7 +125,6 @@ class Brainfuck
 	end
 end
 
-#input =  ARGV ? $< : File(ARGV[0])
 interpreted_program = Brainfuck.new(STDIN.read)
 interpreted_program.eval
 
