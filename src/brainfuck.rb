@@ -9,8 +9,8 @@ class Brainfuck
 		@pos = 0		    # data pointer 
 		@program = input.gsub(/[^\>\<\.\,\+\-\[\]]/m, '').split('') # the brainfuck program
 		@program_pos = 0   # brainfuck program pointer
-        @depth = 0 #depth of the loop 
-    end
+		@depth = 0 #depth of the loop 
+	end
 
 	def move_right
 		# function for '>'
