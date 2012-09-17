@@ -52,43 +52,41 @@ class Brainfuck
 	def jump_forward
 		# function for '['
 		@depth += 1
-        current_depth = @depth
+		current_depth = @depth
 		if @data[@pos] == 0
-            #while @program[@program_pos -1] != ']' and @depth != current_depth 
-            while true
-                @program_pos += 1 
-                if @program[@program_pos] == '['
-                    @depth += 1
-                elsif @program[@program_pos] == ']'
-                    @depth -= 1
-                    if @depth == current_depth - 1
-                        break
-                    end
-                end
-	        end
-        else
+			while true
+				@program_pos += 1 
+		    if @program[@program_pos] == '['
+					@depth += 1
+				elsif @program[@program_pos] == ']'
+					@depth -= 1
+					if @depth == current_depth - 1
+		      	break
+		      end
+				end
+			end
+		else
 			@program_pos += 1 
 		end		
 	end
 
 	def jump_backward
 		# function for ']'
-        @depth -= 1
-        current_depth = @depth
+		@depth -= 1
+		current_depth = @depth
 		if @data[@pos] != 0
-			#@program_pos -= 1 until @program[@program_pos - 1] == '['
-            while true 
-                @program_pos -= 1
-                if @program[@program_pos] == ']'
-                    @depth += 1
-                elsif @program[@program_pos] == '['
-                    @depth -= 1
-                    if @depth == current_depth - 1
-                        break
-                    end
-                end
-            end
-        else
+			while true 
+				@program_pos -= 1
+				if @program[@program_pos] == ']'
+					@depth += 1
+				elsif @program[@program_pos] == '['
+					@depth -= 1
+					if @depth == current_depth - 1
+						break
+					end
+				end
+			end
+		else
 			@program_pos += 1 
 		end	
 	end
@@ -127,4 +125,3 @@ end
 
 interpreted_program = Brainfuck.new(STDIN.read)
 interpreted_program.eval
-
