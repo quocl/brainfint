@@ -94,30 +94,28 @@ class Brainfuck
 	def eval
 		# evaluate the brainfuck program
 		while @program_pos < @program.size
-			case @program[@program_pos]
-			when '>'
-				move_right
-				@program_pos += 1
-			when '<'
-				move_left
-				@program_pos += 1
-			when '+'
-				increase
-				@program_pos += 1
-			when '-'
-				decrease
-				@program_pos += 1
-			when '.'
-				write
-				@program_pos += 1
-			when ','
-				read
-			when '['
-				jump_forward
-			when ']'
-				jump_backward
-			else
-				puts "Invalid input: Unrecognized character #{command}"
+			if @program[@program_pos] != '[' and @program[@program_pos] != ']'
+		    case @program[@program_pos]
+        when '>'
+          move_right
+        when '<'
+          move_left
+        when '+'
+          increase
+        when '-'
+          decrease
+        when '.'
+          write
+        when ','
+          read
+        else
+          puts "Invalid input: Unrecognized character #{@program[@program_pos]}"
+        end
+        @program_pos += 1 
+			elsif @program[@program_pos] == '['
+        jump_forward
+			elsif @program[@program_pos] == ']'
+        jump_backward
 			end
 		end
 	end
