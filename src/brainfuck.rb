@@ -56,13 +56,13 @@ class Brainfuck
 		if @data[@pos] == 0
 			while true
 				@program_pos += 1 
-		    if @program[@program_pos] == '['
+				if @program[@program_pos] == '['
 					@depth += 1
 				elsif @program[@program_pos] == ']'
 					@depth -= 1
 					if @depth == current_depth - 1
-		      	break
-		      end
+						break
+					end
 				end
 			end
 		else
@@ -88,37 +88,37 @@ class Brainfuck
 			end
 		else
 			@program_pos += 1 
-		end	
+		end
 	end
 
 	def eval
 		# evaluate the brainfuck program
-    while @program_pos < @program.size
-      if @program[@program_pos] != '[' and @program[@program_pos] != ']'
-        case @program[@program_pos]
-        when '>'
-          move_right
-        when '<'
-          move_left
-        when '+'
-          increase
-        when '-'
-          decrease
-        when '.'
-          write
-        when ','
-          read
-        else
-          puts "Invalid input: Unrecognized character #{@program[@program_pos]}"
-        end
-        @program_pos += 1 
-      elsif @program[@program_pos] == '['
-        jump_forward
-      elsif @program[@program_pos] == ']'
-        jump_backward
-      end
-    end
-  end
+		while @program_pos < @program.size
+			if @program[@program_pos] != '[' and @program[@program_pos] != ']'
+				case @program[@program_pos]
+				when '>'
+					move_right
+				when '<'
+					move_left
+				when '+'
+					increase
+				when '-'
+					decrease
+				when '.'
+					write
+				when ','
+					read
+				else
+					puts "Invalid input: Unrecognized character #{@program[@program_pos]}"
+				end
+				@program_pos += 1 
+			elsif @program[@program_pos] == '['
+				jump_forward
+			elsif @program[@program_pos] == ']'
+				jump_backward
+			end
+		end
+	end
 end
 
 interpreted_program = Brainfuck.new(STDIN.read)
