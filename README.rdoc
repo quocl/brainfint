@@ -1,3 +1,5 @@
-This is an implementation of brainfuck programming language written in Ruby 1.9.3. It should be able to run with other Ruby 1.9 
+This is an implementation of brainfuck interpreter in Ruby 1.9.3. It should be able to run with other Ruby 1.9. 
+Because of the complication of the language, its interpreter is actually very simple. 
 Author: stryper
-For more information about brainfuck, please visit: http://en.wikipedia.org/wiki/Brainfuck
+For more information about brainfuck, please visit: http://en.wikipedia.org/wiki/Brainfuck.
+
