@@ -2,4 +2,4 @@ This is an implementation of brainfuck interpreter in Ruby 1.9.3.
 
 Author: Quoc
 
-There is a Makefile in there and I guess you know what to do :-P. 
+There is a Makefile in there and I guess you know what to do :-P. Have fun.
