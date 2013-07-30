@@ -45,8 +45,8 @@ class Brainfuck
 	def read
 		# function for ','
 		# accept one byte of input, storing its value in the byte at the data pointer.
-		tmp = gets 
-		@data[@pos] = tmp[0].ord
+		tmp = $stdin.getc
+		@data[@pos] = tmp.ord
 	end
 
 	def jump_forward
@@ -115,5 +115,11 @@ class Brainfuck
 	end
 end
 
-interpreted_program = Brainfuck.new(STDIN.read)
-interpreted_program.eval
+begin
+	x = File.read(ARGV[0])  
+	interpreted_program = Brainfuck.new(x)
+	interpreted_program.eval
+rescue 
+	puts "Sorry, no input." 
+	puts "Usage: ruby brainfuck.rb 'path_to_input_file/input_file'"
+end

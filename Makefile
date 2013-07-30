@@ -3,17 +3,19 @@ SRC=./src
 EX=./examples
 
 hello1:
-	$(RUBY)	$(SRC)/brainfuck.rb	<	$(EX)/hello_world.bf
+	$(RUBY)	$(SRC)/brainfuck.rb	$(EX)/hello_world.bf
 
 hello2:
-	$(RUBY)	$(SRC)/brainfuck.rb	<	$(EX)/hello_world2.bf
+	$(RUBY)	$(SRC)/brainfuck.rb	$(EX)/hello_world2.bf
 
 fib:
-	$(RUBY)	$(SRC)/brainfuck.rb	<	$(EX)/fibonacci.bf
+	$(RUBY)	$(SRC)/brainfuck.rb	$(EX)/fibonacci.bf
 
 fib_small:
-	$(RUBY)	$(SRC)/brainfuck.rb	<	$(EX)/fibonacci_under_hundred.bf
+	$(RUBY)	$(SRC)/brainfuck.rb	$(EX)/fibonacci_under_hundred.bf
 
 fact:
-	$(RUBY)	$(SRC)/brainfuck.rb	<	$(EX)/factorial.bf
+	$(RUBY)	$(SRC)/brainfuck.rb	$(EX)/factorial.bf
 
+take_input:
+	$(RUBY)	$(SRC)/brainfuck.rb	$(EX)/take_input.bf
