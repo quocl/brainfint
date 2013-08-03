@@ -1,5 +1,6 @@
 # Brainfuck interpreter in ruby 1.9.3
 # There are 8 valid commands in brainfuck, which are: '>', '<', '+', '-', '.',',', '[' and  ']'
+# Author: Quoc Le
 
 class Brainfuck
 	SIZE = 30000
@@ -115,11 +116,15 @@ class Brainfuck
 	end
 end
 
+require 'timeout'
+
 begin
-	x = File.read(ARGV[0])  
-	interpreted_program = Brainfuck.new(x)
-	interpreted_program.eval
-rescue 
-	puts "Sorry, no input." 
-	puts "Usage: ruby brainfuck.rb 'path_to_input_file/input_file'"
+	time = Timeout::timeout(30){
+		x = File.read(ARGV[0])  
+		interpreted_program = Brainfuck.new(x)
+		interpreted_program.eval
+	}
+rescue
+	puts "Execution interrupted." 
+	puts "Usage: ruby brainfuck.rb 'path_to_file/brainfcuk_source.bf'"
 end

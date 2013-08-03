@@ -1,5 +1,5 @@
 This is an implementation of brainfuck interpreter in Ruby 1.9.3. 
 
-Author: Quoc
+Author: Quoc Le
 
 There is a Makefile in there and I guess you know what to do :-P. Have fun.
